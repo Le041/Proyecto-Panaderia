@@ -5,7 +5,6 @@ import modelo.PersonaDAO;
 import vista.vista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Console;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -86,10 +85,14 @@ public class Controlador implements ActionListener {
 
     void nuevo() {
         vista.txtId.setText("");
+        vista.txtnumeroIdentidad.setText("");
         vista.txtNombre.setText("");
         vista.txtApellido.setText("");
         vista.txtTelefono.setText("");
         vista.txtCorreo.setText("");
+        vista.cbxRol.setSelectedIndex(0);
+        vista.cbxTipoDocumento.setSelectedIndex(0);
+        vista.txtProfesion.setText("");
         vista.txtNombre.requestFocus();
     }
 
@@ -107,14 +110,22 @@ public class Controlador implements ActionListener {
     }
 
     public void add() {
+        String rol = vista.cbxRol.getSelectedItem().toString();
+        String tipoDocumento = vista.cbxTipoDocumento.getSelectedItem().toString();
+        String numeroIdentidad = vista.txtnumeroIdentidad.getText();
         String nombre = vista.txtNombre.getText();
         String apellido = vista.txtApellido.getText();
         String correo = vista.txtCorreo.getText();
         String telefono = vista.txtTelefono.getText();
+        String profesion = vista.txtProfesion.getText();
+        p.setTipoDocumento(tipoDocumento);
+        p.setNumeroIdentidad(numeroIdentidad);
         p.setNombre(nombre);
         p.setApellido(apellido);
         p.setCorreo(correo);
         p.setTelefono(telefono);
+        p.setProfesion(profesion);
+        p.setRol(rol);
         int r = dao.agregar(p);
         if (r == 1) {
             JOptionPane.showMessageDialog(vista, "Usuario Agregado con Exito.");
